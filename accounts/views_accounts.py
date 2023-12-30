@@ -24,12 +24,20 @@ from django.shortcuts import HttpResponseRedirect
 from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated,AllowAny
 
+
+from decouple import config
+
+site_url = config('SITE_URL')
+
+print(site_url)
+
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class=MyTokenObtainPairSerializer
 
 
 
 class UserRegister(CreateAPIView):
+    permission_classes=(AllowAny,)
 
     def get_serializer_class(self):
         return UserSerializer
@@ -73,6 +81,7 @@ class UserRegister(CreateAPIView):
 
           
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def activate(request, uidb64, token):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()  # Decode the bytes to a string
@@ -86,16 +95,17 @@ def activate(request, uidb64, token):
 
         message = "Congratulations, Successfully registered"
 
-        redirect_url = 'http://localhost:5173/login/' + '?message=' + message + '&token=' + token  
+        redirect_url = site_url+'/login/' + '?message=' + message + '&token=' + token  
     else:
         message = 'Invalid activation Link'
-        redirect_url = 'http://localhost:5173/signup/' + '?message=' + message
+        redirect_url = site_url+'/signup/' + '?message=' + message
 
     return HttpResponseRedirect(redirect_url)
 
 
 
 class GoogleUser(APIView):
+    permission_classes=(AllowAny,)
     def post(self,request):
         email=request.data.get('email')
         password=request.data.get('password')
@@ -128,6 +138,8 @@ class GoogleUser(APIView):
         else:
             return Response(data={'status':'400','msg':'login Failed'})
 
+
+@permission_classes([AllowAny])
 def create_jwt_pair_tokens(user):
 
     refresh=RefreshToken.for_user(user)
@@ -153,6 +165,7 @@ def create_jwt_pair_tokens(user):
 # @permission_classes([IsAuthenticated])
 
 class ForgotPassword(APIView):
+    permission_classes=(AllowAny,)
     def post(self,request):
         email=request.data.get('email')
 
@@ -191,6 +204,7 @@ class ForgotPassword(APIView):
 
 
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def reset_validate(request, uidb64, token):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
@@ -199,9 +213,10 @@ def reset_validate(request, uidb64, token):
         user = None
 
     if user is not None and default_token_generator.check_token(user, token):
-        return HttpResponseRedirect(f'http://localhost:5173/resetpassword/')  
+        return HttpResponseRedirect(f'{site_url}/resetpassword/')  
 
 class ResetPassword(APIView):
+    permission_classes=(AllowAny,)
     def post(self,request,format=None):
         str_user_id=request.data.get('user_id')
         # print(str_user_id,"111111111")
