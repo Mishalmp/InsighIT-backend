@@ -230,11 +230,12 @@ class ResetPassword(APIView):
             return Response(data={'message':'password reset successfully'},status=status.HTTP_200_OK)
         return Response(status=status.HTTP_404_NOT_FOUND)
 
+
+
 class UpdateUser(RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated,)
     queryset=User.objects.all()
     serializer_class=UserInfoSerializer
-
 
 class ChangePassword(APIView):
 
