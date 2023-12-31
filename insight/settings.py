@@ -132,7 +132,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:5173',
+    config('SITE_URL'),
 ]
 
 
