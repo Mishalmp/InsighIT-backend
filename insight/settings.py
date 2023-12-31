@@ -133,6 +133,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ORIGIN_WHITELIST = [
     config('SITE_URL'),
+    # "https://insighit-frontend.vercel.app"
 ]
 
 

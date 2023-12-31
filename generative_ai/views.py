@@ -6,13 +6,14 @@ from openai import OpenAI
 import asyncio
 from openai import AsyncOpenAI
 from rest_framework.permissions import IsAuthenticated,AllowAny
-
+import requests
+from django.http import JsonResponse
 openAI_client = OpenAI(api_key=settings.OPENAI_API_KEY)
 
 class ArticleContentcreationByOpenai(APIView):
     
-   def post(self,request):
-        permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
+    def post(self,request):
 
         try:
             # topic = self.request.query_params.get('topic')
@@ -32,3 +33,19 @@ class ArticleContentcreationByOpenai(APIView):
             return Response(f"{e}:error in content generation",status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             
 
+
+def get_technology_news(request):
+    api_url = "https://newsapi.org/v2/top-headlines"
+    params = {
+        "country": "in",
+        "category": "technology",
+        "apiKey": "779335093dc943fc916cff1ac2af4308",
+    }
+
+    try:
+        response = requests.get(api_url, params=params)
+        response.raise_for_status()
+        data = response.json()
+        return JsonResponse(data)
+    except requests.exceptions.RequestException as e:
+        return JsonResponse({"error": str(e)}, status=500)
