@@ -62,12 +62,12 @@ class MostUsedtopics(ListAPIView):
 
 
 class CommunityCreateView(CreateAPIView):
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
     queryset=Community.objects.all()
     serializer_class=CommunityCreateSerializer
 
 class CommunityListView(ListAPIView):
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
     serializer_class=CommunitySerializer
     queryset=Community.objects.all().order_by('-created_at')
 
