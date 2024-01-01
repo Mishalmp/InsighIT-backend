@@ -11,9 +11,7 @@ from django.http import JsonResponse
 from decouple import config
 
 
-# openai_api_key = config("OPENAI_API_KEY")
-
-openAI_client = OpenAI(api_key=settings.OPENAI_API_KEY)
+openAI_client = OpenAI(api_key="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")
 
 class ArticleContentcreationByOpenai(APIView):
     
