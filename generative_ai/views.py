@@ -8,6 +8,11 @@ from openai import AsyncOpenAI
 from rest_framework.permissions import IsAuthenticated,AllowAny
 import requests
 from django.http import JsonResponse
+from decouple import config
+
+
+# openai_api_key = config("OPENAI_API_KEY")
+
 openAI_client = OpenAI(api_key=settings.OPENAI_API_KEY)
 
 class ArticleContentcreationByOpenai(APIView):
@@ -29,7 +34,9 @@ class ArticleContentcreationByOpenai(APIView):
             return Response(completion.choices[0].message, status=status.HTTP_200_OK)
         
         except Exception as e:
-
+            import traceback
+            traceback_str = traceback.format_exc()
+            print(f"Error in content generation: {e}\n{traceback_str}")
             return Response(f"{e}:error in content generation",status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             
 

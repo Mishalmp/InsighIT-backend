@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     'django_celery_beat'
 ]
+
 APPEND_SLASH = False
 
 REST_FRAMEWORK = {
@@ -281,4 +282,5 @@ CELERY_BEAT_SCHEDULER  = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 
 #OpenAI
-OPENAI_API_KEY = config('OPENAI_API_KEY')
+# OPENAI_API_KEY = config('OPENAI_API_KEY')
+OPENAI_API_KEY = "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"
