@@ -12,7 +12,6 @@ from decouple import config
 
 
 openAI_client = OpenAI(api_key=config('CHATGPT_API_KEY'))
-print(config('CHATGPT_API_KEY'),'apiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii')
 class ArticleContentcreationByOpenai(APIView):
     
     permission_classes = (IsAuthenticated,)
