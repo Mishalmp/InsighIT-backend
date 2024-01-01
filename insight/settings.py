@@ -282,5 +282,5 @@ CELERY_BEAT_SCHEDULER  = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 
 #OpenAI
-OPENAI_API_KEY = config('OPENAI_API_KEY')
+OPENAI_API_KEY = config('CHATGPT_API_KEY')
 
