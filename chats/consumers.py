@@ -151,6 +151,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
     
     @database_sync_to_async
     def save_notifications(self,user,text):
+        from accounts.models import Notifications
         Notifications.objects.create(
             user=user,text=text
         )
