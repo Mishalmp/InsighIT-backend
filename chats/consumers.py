@@ -2,7 +2,7 @@ import json
 from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 from datetime import datetime
-from accounts.models import Notifications
+
 from django.contrib.auth import get_user_model
 from asgiref.sync import sync_to_async
 
@@ -100,9 +100,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
             sender=sender,reciever=reciever,message=message,thread_name=thread_name
         )
         
-from accounts.models import Notifications
-
 class NotificationConsumer(AsyncWebsocketConsumer):
+    from accounts.models import Notifications
     async def connect(self):
         try:
             user_id = self.scope['url_route']['kwargs']['user_id']
@@ -160,6 +159,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
 
 
 class AdminNotifications(AsyncWebsocketConsumer):
+    from accounts.models import Notifications
     async def connect(self):
         try:
             self.group_name = 'admin_group'
