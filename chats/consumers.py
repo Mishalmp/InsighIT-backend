@@ -101,8 +101,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
         )
         
 class NotificationConsumer(AsyncWebsocketConsumer):
-    from accounts.models import Notifications
     async def connect(self):
+        from accounts.models import Notifications
         try:
             user_id = self.scope['url_route']['kwargs']['user_id']
             self.group_name = f'user_{user_id}'
@@ -160,8 +160,8 @@ class NotificationConsumer(AsyncWebsocketConsumer):
 
 
 class AdminNotifications(AsyncWebsocketConsumer):
-    from accounts.models import Notifications
     async def connect(self):
+        from accounts.models import Notifications
         try:
             self.group_name = 'admin_group'
             await self.channel_layer.group_add(
