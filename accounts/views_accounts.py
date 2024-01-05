@@ -110,7 +110,7 @@ class GoogleUser(APIView):
         email=request.data.get('email')
         password=request.data.get('password')
 
-
+        
         if not User.objects.filter(email=email).exists():
             serializer=UserGoogleSerializer(data=request.data)
 

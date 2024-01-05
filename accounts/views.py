@@ -182,6 +182,21 @@ class IsSubscriber(APIView):
         except Exception as e:
             return Response({"message":str(e) }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+class Is_standard_subscriber(APIView):
+    permission_classes = (IsAuthenticated,)
+    def get(self,request,user_id,author_id, *args, **kwargs):
+
+        try:
+            is_standard_subscriber = Subscription.objects.filter(
+                subscriber=user_id,
+                subscribed_to=author_id,
+                subscription_type__in=['standard_monthly', 'standard_yearly'],
+                is_active=True
+            ).exists()
+
+            return Response({'is_standard_subscriber':is_standard_subscriber},status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error':str(e)},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 

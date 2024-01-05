@@ -51,7 +51,7 @@ def send_mail_func(self):
     return "doneee"
     
 
-@shared_task()
+@shared_task
 def check_expiring_subscription():
     expiring_subscriptions = Subscription.objects.filter(
         end_time__lte=timezone.now(),

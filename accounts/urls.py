@@ -31,6 +31,8 @@ urlpatterns=[
 
     path('subscriptions/',SubscriptionList.as_view(),name='subscriptions'),
     path('isSubscriber/<int:user_id>/<int:blog_author>/',IsSubscriber.as_view(),name='IsSubscriber'),
+    path('isstandardSubscriber/<int:user_id>/<int:author_id>/',Is_standard_subscriber.as_view(),name='IsstandardSubscriber'),
+
     path('followingscreate/',FollowingsCreate.as_view(),name='followingcreate'),
     path('is_follower/<int:follower_id>/<int:following_id>/',Isfollowing.as_view(),name='is_follower'),
     path('unfollow/<int:follower_id>/<int:following_id>/',Unfollow.as_view(),name='unfollow'),
