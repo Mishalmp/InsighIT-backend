@@ -28,6 +28,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5173",
+    "https://daphneinsighit.justwatches.site",
+    # Add more origins as needed
+]
+
 
 # Application definition
 
